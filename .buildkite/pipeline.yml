@@ -16,3 +16,9 @@ steps:
           files:
             - hooks/**
             - lib/**
+
+  - wait
+
+  - label: ":loop: Self tests"
+    plugins:
+      - ${BUILDKITE_PULL_REQUEST_REPO:-$BUILDKITE_REPO}#${BUILDKITE_COMMIT}: {}
