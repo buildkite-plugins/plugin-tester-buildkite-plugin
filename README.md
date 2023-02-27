@@ -1,6 +1,6 @@
-# Template Buildkite Plugin
+# Plugin Tester BuildKite Plugin
 
-A Buildkite plugin for something awesome
+A Buildkite plugin that runs plugin tests (using the [specially-built docker image](https://github.com/buildkite-plugins/buildkite-plugin-tester))
 
 ## Options
 
@@ -8,41 +8,45 @@ These are all the options available to configure this plugin's behaviour.
 
 ### Required
 
-#### `mandatory` (string)
-
-A great description of what this is supposed to do.
+There are no mandatory options.
 
 ### Optional
 
-#### `optional` (string)
+#### `folders` (string or array)
 
-Describe how the plugin behaviour changes if this option is not specified, allowed values and its default.
+The folders that contain the tests to run. You will need to use this option if you have more than one folder with tests. Default: `tests`.
+
+#### `pull` (boolean)
+
+Whether to force pulling the image before running or not. Default:  `false`.
+
+#### `version` (string)
+
+The version of the [plugin tester docker image](https://github.com/buildkite-plugins/buildkite-plugin-tester) to run. Default: `v4.0.0`.
 
 ## Examples
 
-Show how your plugin is to be used
+99% of the time you will have to use the following step verbatim:
 
 ```yaml
 steps:
-  - label: "🔨 Running plugin"
-    command: "echo template plugin"
+  - label: "🔨 Tests"
     plugins:
-      - template#v1.0.0:
-          mandatory: "value"
+      - plugin-tester#v1.0.0: ~
 ```
 
-## And with other options as well
+## Multiple folders
 
-If you want to change the plugin behaviour:
+If you have a sub-folder with tests, you will need to specify both folders (unfortunately):
 
 ```yaml
 steps:
-  - label: "🔨 Running plugin"
-    command: "echo template plugin with options"
+  - label: "🔨 Running tests"
     plugins:
-      - template#v1.0.0:
-          mandatory: "value"
-          optional: "example"
+      - plugin-tester#v1.0.0:
+          folders:
+            - tests
+            - tests/v2
 ```
 
 ## ⚒ Developing
@@ -55,7 +59,7 @@ bk local run
 
 ## 👩‍💻 Contributing
 
-Your policy on how to contribute to the plugin!
+Feel free to open PRs with functionality or report issues here in GitHub :)
 
 ## 📜 License
 
