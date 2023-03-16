@@ -1,14 +1,20 @@
-name: Buildkite Plugin
-description: Exceptional functionality
+name: Test BuildKite Plugins
+description: Automatically run plugin tests (using bats)
 author: https://github.com/buildkite-plugins
 requirements:
   - bash
+  - docker
 configuration:
   properties:
-    mandatory:
+    folders:
+      oneOf:
+        - type: string
+        - type: array
+          items:
+            type: string
+    pull:
+      type: boolean
+    version:
       type: string
-    optional:
-      type: string
-  required:
-    - mandatory
+  required: [ ]
   additionalProperties: false

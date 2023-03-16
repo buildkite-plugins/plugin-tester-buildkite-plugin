@@ -7,15 +7,27 @@ DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 # shellcheck source=lib/plugin.bash
 . "$DIR/../lib/plugin.bash"
 
-MANDATORY_OPTION=$(plugin_read_config MANDATORY "")
 
-if [ -z "${MANDATORY_OPTION}" ]; then
-  echo 'Missing mandatory option in the plugin'
-  exit 1
+IMAGE_TAG=$(plugin_read_config VERSION 'v4.0.0')
+
+DOCKER_CMD=(
+  docker run --rm -ti
+  -v "${PWD}":/plugin
+)
+
+if [ "$(plugin_read_config PULL 'false')" = 'true' ]; then
+  DOCKER_CMD+=(--pull)
 fi
 
-OPTIONAL_OPTION=$(plugin_read_config OPTIONAL "default")
+# all docker options need to be above this line
+DOCKER_CMD+=(buildkite/plugin-tester:"${IMAGE_TAG}")
+# anything after this element will be the command executed in the container
 
-echo "Running plugin with options:"
-echo " - mandatory: ${MANDATORY_OPTION}"
-echo " - optional: ${OPTIONAL_OPTION}"
+if ! plugin_read_list_into_result FOLDERS; then
+  # default value
+  DOCKER_CMD+=(bats tests)
+else
+  DOCKER_CMD+=(bats "${result[@]}")
+fi
+
+"${DOCKER_CMD[@]}"

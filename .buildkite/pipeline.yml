@@ -8,7 +8,7 @@ steps:
   - label: ":sparkles: Lint"
     plugins:
       - plugin-linter#v3.0.0:
-          id: ecr
+          id: plugin-tester
 
   - label: ":shell: Shellcheck"
     plugins:
@@ -16,3 +16,9 @@ steps:
           files:
             - hooks/**
             - lib/**
+
+  - wait
+
+  - label: ":loop: Self tests"
+    plugins:
+      - ${BUILDKITE_PULL_REQUEST_REPO:-$BUILDKITE_REPO}#${BUILDKITE_COMMIT}: {}
