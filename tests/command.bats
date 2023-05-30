@@ -8,6 +8,9 @@ setup() {
 
   # to make all tests have a stable value
   export BUILDKITE_PLUGIN_PLUGIN_TESTER_VERSION='latest'
+
+  # to make version updates easier
+  export LATEST_VERSION='v4.1.0'
 }
 
 @test "Normal basic operations" {
@@ -20,7 +23,7 @@ setup() {
   assert_success
   assert_output --partial 'docker ran with'
   assert_output --partial " -v $PWD:/plugin "
-  assert_output --partial ' buildkite/plugin-tester:v4.0.0 bats tests'
+  assert_output --partial " buildkite/plugin-tester:${LATEST_VERSION} bats tests"
 
   unstub docker
 }
@@ -33,7 +36,7 @@ setup() {
   assert_success
   assert_output --partial 'docker ran with'
   assert_output --partial ' buildkite/plugin-tester:latest'
-  refute_output --partial ' buildkite/plugin-tester:v4.0.0'
+  refute_output --partial " buildkite/plugin-tester:${LATEST_VERSION}"
 
   unstub docker
 }
