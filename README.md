@@ -1,4 +1,4 @@
-# Plugin Tester BuildKite Plugin
+# Plugin Tester BuildKite Plugin [![Build status](https://badge.buildkite.com/fdf6cc0ba3636d07ab477c6380331afe798cb20f4ad5ef2be6.svg)](https://buildkite.com/buildkite/plugins-plugin-tester)
 
 A Buildkite plugin that runs plugin tests (using the [specially-built docker image](https://github.com/buildkite-plugins/buildkite-plugin-tester))
 
