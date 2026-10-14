@@ -22,7 +22,7 @@ Whether to force pulling the image before running or not. Default:  `false`.
 
 #### `version` (string)
 
-The version of the [plugin tester docker image](https://github.com/buildkite-plugins/buildkite-plugin-tester) to run. Default: `v4.3.0`.
+The version of the [plugin tester Docker image](https://github.com/buildkite-plugins/buildkite-plugin-tester) to run. Default: `v4.4.0`.
 
 ## Examples
 
@@ -32,7 +32,7 @@ The version of the [plugin tester docker image](https://github.com/buildkite-plu
 steps:
   - label: "🔨 Tests"
     plugins:
-      - plugin-tester#v1.3.0: ~
+      - plugin-tester#v1.4.0: ~
 ```
 
 ## Multiple folders
@@ -43,10 +43,24 @@ If you have a sub-folder with tests, you will need to specify both folders (unfo
 steps:
   - label: "🔨 Running tests"
     plugins:
-      - plugin-tester#v1.3.0:
+      - plugin-tester#v1.4.0:
           folders:
             - tests
             - tests/v2
+```
+
+## Upgrading to v1.4
+
+Version 1.4 updates the default tester image from `v4.3.0` to `v4.4.0`, which supports both `linux/amd64` and `linux/arm64`.
+
+To retain the previous image version, configure it explicitly:
+
+```yaml
+steps:
+  - label: "🔨 Tests"
+    plugins:
+      - plugin-tester#v1.4.0:
+          version: v4.3.0
 ```
 
 ## ⚒ Developing
