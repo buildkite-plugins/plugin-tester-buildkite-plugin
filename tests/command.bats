@@ -10,7 +10,7 @@ setup() {
   export BUILDKITE_PLUGIN_PLUGIN_TESTER_VERSION='latest'
 
   # to make version updates easier
-  export LATEST_VERSION='v4.4.0'
+  export LATEST_VERSION='v5.0.0'
 }
 
 @test "Normal basic operations" {

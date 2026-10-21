@@ -22,7 +22,14 @@ Whether to force pulling the image before running or not. Default:  `false`.
 
 #### `version` (string)
 
-The version of the [plugin tester Docker image](https://github.com/buildkite-plugins/buildkite-plugin-tester) to run. Default: `v4.4.0`.
+The version of the [plugin tester Docker image](https://github.com/buildkite-plugins/buildkite-plugin-tester) to run. Default: `v5.0.0`.
+
+The v5.0.0 image upgrades Alpine from 3.12 to 3.24 and removes the legacy
+`no-faccessat2` workaround. Older container runtime or libseccomp configurations
+that block `faccessat2` may fail with `BATS_TMPDIR (/tmp) is not writable`.
+Upgrade the host runtime and libseccomp rather than disabling seccomp or using
+privileged mode. For Docker-in-Docker, check both the outer and inner runtimes.
+See the [v5.0.0 release notes](https://github.com/buildkite-plugins/buildkite-plugin-tester/releases/tag/v5.0.0).
 
 ## Examples
 
