@@ -73,14 +73,6 @@ Pulling an unchanged older tag does not guarantee remediation. Updating the
 wrapper does not replace an explicit older image override, and existing pipelines
 pinned to older plugin releases must be updated separately.
 
-## ⚒ Developing
-
-You can use the [bk cli](https://github.com/buildkite/cli) to run the [pipeline](.buildkite/pipeline.yml) locally:
-
-```bash
-bk local run
-```
-
 ## 👩‍💻 Contributing
 
 Feel free to open PRs with functionality or report issues here in GitHub :)
