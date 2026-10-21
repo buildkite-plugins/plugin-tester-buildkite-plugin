@@ -39,7 +39,7 @@ See the [v5.0.0 release notes](https://github.com/buildkite-plugins/buildkite-pl
 steps:
   - label: "🔨 Tests"
     plugins:
-      - plugin-tester#v1.4.0: ~
+      - plugin-tester#v2.0.0: ~
 ```
 
 ## Multiple folders
@@ -50,11 +50,28 @@ If you have a sub-folder with tests, you will need to specify both folders (unfo
 steps:
   - label: "🔨 Running tests"
     plugins:
-      - plugin-tester#v1.4.0:
+      - plugin-tester#v2.0.0:
           folders:
             - tests
             - tests/v2
 ```
+
+## Upgrading existing installations
+
+Update pipeline references to `plugin-tester#v2.0.0`. Remove any older `version`
+override to use the default tester image, or explicitly set `version: v5.0.0`.
+The plugin version and tester image version are separate.
+
+The plugin does not pull images by default. On each agent host (or Docker daemon
+used by the tests), explicitly pull the new image to refresh the local cache:
+
+```bash
+docker pull buildkite/plugin-tester:v5.0.0
+```
+
+Pulling an unchanged older tag does not guarantee remediation. Updating the
+wrapper does not replace an explicit older image override, and existing pipelines
+pinned to older plugin releases must be updated separately.
 
 ## ⚒ Developing
 
